@@ -9,17 +9,23 @@ public class UNOgame {
    }
    
    public static ArrayList<String> fillCards(ArrayList<String> cards) {
-      for (int i = 0; i < 9; i++) {
+      for (int i = 1; i <= 9; i++) {
          cards.add("red" + i);
       }
-      for (int i = 0; i < 9; i++) {
+      for (int i = 1; i <= 9; i++) {
          cards.add("blue" + i);
       }
-      for (int i = 0; i < 9; i++) {
+      for (int i = 1; i <= 9; i++) {
          cards.add("green" + i);
       }
-      for (int i = 0; i < 9; i++) {
+      for (int i = 1; i <= 9; i++) {
          cards.add("yellow" + i);
+      }
+      for (int i = 1; i <= 9; i++) {
+         cards.add("wild");
+      }
+      for (int i = 1; i <= 9; i++) {
+         cards.add("reverse");
       }
       return cards;
    }
