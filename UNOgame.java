@@ -65,6 +65,7 @@ public class UNOgame {
          for (int k = 0; k < players.get(pIndex).size(); k++) {
             String card = players.get(pIndex).get(k);
             
+            //case for if the player previously played a wild card
             if (dcard.equals("reverse")) {
                discardDeck.add(card);
                players.get(pIndex).remove(k);
@@ -72,8 +73,7 @@ public class UNOgame {
                played = true;
                System.out.println("card played by " + pIndex + ", card was: " + card);  
                k = players.get(pIndex).size();
-            }
-            //player plays card if top of discard card is matching in color or number;
+            } //player plays card if top of discard card is matching in color or number;
             else if (card.substring(0, card.length()-1).equals(dcard.substring(0, dcard.length()-1)) //color case
             || card.substring(card.length()-1).equals(dcard.substring(dcard.length()-1))) { //num case
                discardDeck.add(card);
@@ -96,8 +96,30 @@ public class UNOgame {
                played = true;
                System.out.println("card played by " + pIndex + ", card was: " + card);  
                k = players.get(pIndex).size();
-               
-            } else { //sets played condition to false player could not play a card
+            } //player plays wild card if they cant play a reverse or colored num card, wild card is played and additional card is played to set allowable type
+            else if (card.equals("wild")) {
+               discardDeck.add(card);
+               players.get(pIndex).remove(k);
+               //player plays additional card if they can to set type
+               if (players.get(pIndex).size() > 1) {
+                     for (int q = 0; q < players.get(pIndex).size(); q++) {
+                        if (!players.get(pIndex).get(q).equals("wild")) {
+                           discardDeck.add(players.get(pIndex).get(q));
+                           players.get(pIndex).remove(q);
+                           
+                                          //ends turn 
+                           played = true;
+                           System.out.println("wild card played by " + pIndex + ", new card was: " + card);  
+                           q = players.get(pIndex).size();
+                        }
+                     }
+               }
+               //ends turn 
+               played = true;
+               System.out.println("card played by " + pIndex + ", card was: " + card);  
+               k = players.get(pIndex).size();
+            }
+            else { //sets played condition to false player could not play a card
                played = false;
             }
          } 
@@ -131,9 +153,10 @@ public class UNOgame {
                wins.add(j+1);
             }
          }
-
-        // System.out.println(players.toString());
       }
+      
+      
+      System.out.println(wins.toString());
       
       //main game loop
       /*
@@ -146,22 +169,22 @@ public class UNOgame {
    
    //method to make deck of cards
    public static ArrayList<String> fillCards(ArrayList<String> cards) {
-      for (int i = 1; i <= 9; i++) {
+      for (int i = 0; i <= 9; i++) {
          cards.add("red" + i);
       }
-      for (int i = 1; i <= 9; i++) {
+      for (int i = 0; i <= 9; i++) {
          cards.add("blue" + i);
       }
-      for (int i = 1; i <= 9; i++) {
+      for (int i = 0; i <= 9; i++) {
          cards.add("green" + i);
       }
-      for (int i = 1; i <= 9; i++) {
+      for (int i = 0; i <= 9; i++) {
          cards.add("yellow" + i);
       }
-      /*for (int i = 1; i <= 8; i++) {
+      for (int i = 1; i <= 8; i++) {
          cards.add("wild");
       }
-      */
+      
       for (int i = 1; i <= 8; i++) {
          cards.add("reverse");
       }
